@@ -2,6 +2,7 @@ package com.rovenhook.rsshool2021_android_task_catapi.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.rovenhook.rsshool2021_android_task_catapi.data.CatsApiData
@@ -9,13 +10,14 @@ import com.rovenhook.rsshool2021_android_task_catapi.databinding.CatItemBinding
 import com.rovenhook.rsshool2021_android_task_catapi.listeners.OnSmallImageClickListener
 
 class CatsAdapter(
-    private val onSmallImageClickListener: OnSmallImageClickListener
+//    private val onSmallImageClickListener: OnSmallImageClickListener
+    private  val onCatClick: (imageview: ImageView) -> Unit
 ) : ListAdapter<CatsApiData, CatsViewHolder>(itemComporator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = CatItemBinding.inflate(layoutInflater)
-        return CatsViewHolder(binding, onSmallImageClickListener)
+        return CatsViewHolder(binding, onCatClick)
     }
 
     override fun onBindViewHolder(holder: CatsViewHolder, position: Int) {

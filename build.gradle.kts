@@ -31,12 +31,12 @@ subprojects {
     }
 }
 
-
 detekt {
+    toolVersion = "1.18.1"
+    config = files("config/detekt/detekt.yml")
     buildUponDefaultConfig = true
-    allRules = false
-    config = files("$projectDir/config/detekt.yml")
-    baseline = file("$projectDir/config/baseline.xml")
+
+    input = files("app/src/main/java", "app/src/main/kotlin")
 
     reports {
         html.enabled = true
@@ -44,6 +44,5 @@ detekt {
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
-    // Target version of the generated JVM bytecode. It is used for type resolution.
     jvmTarget = "1.8"
 }

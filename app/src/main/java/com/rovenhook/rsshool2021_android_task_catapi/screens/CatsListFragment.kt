@@ -19,13 +19,30 @@ import com.rovenhook.rsshool2021_android_task_catapi.databinding.FragmentCatsLis
 import com.rovenhook.rsshool2021_android_task_catapi.listeners.OnSmallImageClickListener
 import com.rovenhook.rsshool2021_android_task_catapi.viewmodels.CatsViewModel
 
-class CatsListFragment : Fragment(), OnSmallImageClickListener {
+class CatsListFragment : Fragment() {
     private var _binding: FragmentCatsListBinding? = null
     private val binding: FragmentCatsListBinding
         get() = _binding ?: throw Exception("Binding error")
     private val viewModel: CatsViewModel by viewModels()
     private var catList: ArrayList<CatsApiData> = arrayListOf()
     private val repository: Repository = Repository()
+
+    private val onclick: (imageView: ImageView) -> Unit = {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.animator.card_flip_right_in,
+                R.animator.card_flip_right_out,
+                R.animator.card_flip_left_in,
+                R.animator.card_flip_left_out
+            )
+            .replace(R.id.mainContainer, DetailedViewFragment(it))
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private val adapter by lazy(LazyThreadSafetyMode.NONE) {
+        CatsAdapter(onclick)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,9 +57,10 @@ class CatsListFragment : Fragment(), OnSmallImageClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = CatsAdapter(
-            this as OnSmallImageClickListener
-        )
+//        val adapter = CatsAdapter(
+//            this as OnSmallImageClickListener
+//        )
+
         binding.recyclerViewCats.adapter = adapter
         val spanCount = when {
             this.getResources()
@@ -70,19 +88,6 @@ class CatsListFragment : Fragment(), OnSmallImageClickListener {
                 }
             }
         })
-    }
-
-    override fun onSmallImageClick(imageView: ImageView) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .setCustomAnimations(
-                R.animator.card_flip_right_in,
-                R.animator.card_flip_right_out,
-                R.animator.card_flip_left_in,
-                R.animator.card_flip_left_out
-            )
-            .replace(R.id.mainContainer, DetailedViewFragment(imageView))
-            .addToBackStack(null)
-            .commit()
     }
 
     override fun onDestroyView() {

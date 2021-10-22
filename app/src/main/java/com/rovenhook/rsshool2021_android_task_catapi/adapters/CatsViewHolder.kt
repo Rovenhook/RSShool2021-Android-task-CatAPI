@@ -1,5 +1,6 @@
 package com.rovenhook.rsshool2021_android_task_catapi.adapters
 
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
@@ -10,7 +11,8 @@ import com.rovenhook.rsshool2021_android_task_catapi.listeners.OnSmallImageClick
 
 class CatsViewHolder(
     private val binding: CatItemBinding,
-    private val onSmallImageClickListener: OnSmallImageClickListener
+//    private val onSmallImageClickListener: OnSmallImageClickListener
+    private  val onCatClick: (imageview: ImageView) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(cat: CatsApiData) {
@@ -23,7 +25,7 @@ class CatsViewHolder(
 
         // click to enlarge the photo
         binding.imageViewCat.setOnClickListener {
-            onSmallImageClickListener.onSmallImageClick(binding.imageViewCat)
+            onCatClick(binding.imageViewCat)
         }
     }
 }
