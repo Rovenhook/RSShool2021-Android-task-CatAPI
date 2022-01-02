@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import coil.load
+import com.rovenhook.rsshool2021_android_task_catapi.MainActivity
 import com.rovenhook.rsshool2021_android_task_catapi.R
 import com.rovenhook.rsshool2021_android_task_catapi.databinding.FragmentDetailedViewBinding
 import java.io.File
@@ -31,6 +32,9 @@ class DetailedViewFragment(private val imageView: ImageView) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        if (activity is MainActivity) (activity as MainActivity).hideUi()
+
         _binding = FragmentDetailedViewBinding.inflate(inflater, container, false)
 
         binding.imageViewDetailed.load(imageView.drawable)

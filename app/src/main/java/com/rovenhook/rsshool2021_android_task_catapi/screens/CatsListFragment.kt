@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.rovenhook.rsshool2021_android_task_catapi.MainActivity
 import com.rovenhook.rsshool2021_android_task_catapi.R
 import com.rovenhook.rsshool2021_android_task_catapi.adapters.CatsAdapter
 import com.rovenhook.rsshool2021_android_task_catapi.data.CatsApiData
@@ -49,6 +50,9 @@ class CatsListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        if (activity is MainActivity) (activity as MainActivity).showUi()
+
         _binding = FragmentCatsListBinding.inflate(inflater, container, false)
 
         return binding.root
